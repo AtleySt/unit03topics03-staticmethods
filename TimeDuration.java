@@ -71,11 +71,35 @@ public class TimeDuration {
             if (time.substring(index+1, index+2).equals(":"));
                 colonCount++;
         }
-        if (colonCount = 1) {
+        boolean beforeColon = false;
+        if (colonCount == 1) {
             for (int index = 0; index < time.length(); index++) {
-                
+                if (!beforeColon) {
+                    minutes = subToNum(time.substring(index,index+1));
+                } else {
+                    seconds = subToNum(time.substring(index,index+1));
+                }
+                if (time.substring(index,index+1).equals(":")) {
+                    beforeColon = true;
+                }
             }
         }
+        int colonCount2 = 0;
+        if (colonCount == 2) {
+            for (int index = 0; index < time.length(); index++) {
+                if (time.substring(index,index+1).equals(":")) {
+                    colonCount2 += 1;
+                }
+                if (colonCount2 == 0) {
+                    hours = subToNum(time.substring(index,index+1));
+                } else if (colonCount2 == 1) {
+                    minutes = subToNum(time.substring(index,index+1));
+                } else if (colonCount2 == 2) {
+                    seconds = subToNum(time.substring(index,index+1));
+                }
+            }
+        }
+        return result;
     }
 
     public String toString() {
