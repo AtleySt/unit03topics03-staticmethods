@@ -11,7 +11,7 @@ public class TimeDuration {
         this.seconds = seconds;
     }
 
-    private int subToNum(String text) {
+    private int strToInt(String text) {
             String curChar = text;
             if (curChar.equals("1")) {
                 return 1;
@@ -48,17 +48,17 @@ public class TimeDuration {
         TimeDuration result = new TimeDuration(hours, minutes, seconds);
         for (int index = 0; index < time.length(); index++) {
             if (time.substring(index+1, index+2).equals("m")) {
-                minutes = subToNum(time.substring(index, index+1));
+                minutes = strToInt(time.substring(index, index+1));
             } else if (time.substring(index+1, index+2).equals(" ") && time.substring(index+2, index+3).equals("m")) {
-                minutes = subToNum(time.substring(index, index+1));
+                minutes = strToInt(time.substring(index, index+1));
             } else if (time.substring(index+1, index+2).equals(" ") && time.substring(index+2, index+3).equals("h")) {
-                hours = subToNum(time.substring(index, index+1));
+                hours = strToInt(time.substring(index, index+1));
             } else if (time.substring(index+1, index+2).equals("h")) {
-                hours = subToNum(time.substring(index, index+1));
+                hours = strToInt(time.substring(index, index+1));
             } else if (time.substring(index+1, index+2).equals("s")) {
-                seconds = subToNum(time.substring(index, index+1));
+                seconds = strToInt(time.substring(index, index+1));
             } else if (time.substring(index+1, index+2).equals(" ") && time.substring(index+2, index+3).equals("s")) {
-                seconds = subToNum(time.substring(index, index+1));
+                seconds = strToInt(time.substring(index, index+1));
             }
         }
         return result;
@@ -75,9 +75,9 @@ public class TimeDuration {
         if (colonCount == 1) {
             for (int index = 0; index < time.length(); index++) {
                 if (!beforeColon) {
-                    minutes = subToNum(time.substring(index,index+1));
+                    minutes = strToInt(time.substring(index,index+1));
                 } else {
-                    seconds = subToNum(time.substring(index,index+1));
+                    seconds = strToInt(time.substring(index,index+1));
                 }
                 if (time.substring(index,index+1).equals(":")) {
                     beforeColon = true;
@@ -91,11 +91,42 @@ public class TimeDuration {
                     colonCount2 += 1;
                 }
                 if (colonCount2 == 0) {
-                    hours = subToNum(time.substring(index,index+1));
+                    if (time.substring(index-1,index).equals("1")) {
+                        hours = strToInt(time.substring(index,index+1))+10;
+                    } else if (time.substring(index-1,index).equals("2")) {
+                        hours = strToInt(time.substring(index,index+1))+20;
+                    } else {
+                        hours = strToInt(time.substring(index,index+1));
+                    }
+                    
                 } else if (colonCount2 == 1) {
-                    minutes = subToNum(time.substring(index,index+1));
+                    if (time.substring(index-1,index).equals("1")) {
+                        minutes = strToInt(time.substring(index,index+1))+10;
+                    } else if (time.substring(index-1,index).equals("2")) {
+                        minutes = strToInt(time.substring(index,index+1))+20;
+                    } else if (time.substring(index-1,index).equals("3")) {
+                        minutes = strToInt(time.substring(index,index+1))+30;
+                    } else if (time.substring(index-1,index).equals("4")) {
+                        minutes = strToInt(time.substring(index,index+1))+40;
+                    } else if (time.substring(index-1,index).equals("5")) {
+                        minutes = strToInt(time.substring(index,index+1))+50;
+                    } else {
+                        minutes = strToInt(time.substring(index,index+1));
+                    }
                 } else if (colonCount2 == 2) {
-                    seconds = subToNum(time.substring(index,index+1));
+                    if (time.substring(index-1,index).equals("1")) {
+                        seconds = strToInt(time.substring(index,index+1))+10;
+                    } else if (time.substring(index-1,index).equals("2")) {
+                        seconds = strToInt(time.substring(index,index+1))+20;
+                    } else if (time.substring(index-1,index).equals("3")) {
+                        seconds = strToInt(time.substring(index,index+1))+30;
+                    } else if (time.substring(index-1,index).equals("4")) {
+                        seconds = strToInt(time.substring(index,index+1))+40;
+                    } else if (time.substring(index-1,index).equals("5")) {
+                        seconds = strToInt(time.substring(index,index+1))+50;
+                    } else {
+                        seconds = strToInt(time.substring(index,index+1));
+                    }
                 }
             }
         }
