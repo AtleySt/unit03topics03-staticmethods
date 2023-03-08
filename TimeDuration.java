@@ -11,7 +11,7 @@ public class TimeDuration {
         this.seconds = seconds;
     }
 
-    private int strToInt(String text) {
+    private static int strToInt(String text) {
             String curChar = text;
             if (curChar.equals("1")) {
                 return 1;
@@ -64,72 +64,11 @@ public class TimeDuration {
         return result;
     }
 
-    public TimeDuration parseFromColonString(String time) {
-        TimeDuration result = new TimeDuration(hours, minutes, seconds);
-        int colonCount = 0;
-        for (int index = 0; index < time.length(); index++) {
-            if (time.substring(index+1, index+2).equals(":"));
-                colonCount++;
-        }
-        boolean beforeColon = false;
-        if (colonCount == 1) {
-            for (int index = 0; index < time.length(); index++) {
-                if (!beforeColon) {
-                    minutes = strToInt(time.substring(index,index+1));
-                } else {
-                    seconds = strToInt(time.substring(index,index+1));
-                }
-                if (time.substring(index,index+1).equals(":")) {
-                    beforeColon = true;
-                }
-            }
-        }
-        int colonCount2 = 0;
-        if (colonCount == 2) {
-            for (int index = 0; index < time.length(); index++) {
-                if (time.substring(index,index+1).equals(":")) {
-                    colonCount2 += 1;
-                }
-                if (colonCount2 == 0) {
-                    if (time.substring(index-1,index).equals("1")) {
-                        hours = strToInt(time.substring(index,index+1))+10;
-                    } else if (time.substring(index-1,index).equals("2")) {
-                        hours = strToInt(time.substring(index,index+1))+20;
-                    } else {
-                        hours = strToInt(time.substring(index,index+1));
-                    }
-                    
-                } else if (colonCount2 == 1) {
-                    if (time.substring(index-1,index).equals("1")) {
-                        minutes = strToInt(time.substring(index,index+1))+10;
-                    } else if (time.substring(index-1,index).equals("2")) {
-                        minutes = strToInt(time.substring(index,index+1))+20;
-                    } else if (time.substring(index-1,index).equals("3")) {
-                        minutes = strToInt(time.substring(index,index+1))+30;
-                    } else if (time.substring(index-1,index).equals("4")) {
-                        minutes = strToInt(time.substring(index,index+1))+40;
-                    } else if (time.substring(index-1,index).equals("5")) {
-                        minutes = strToInt(time.substring(index,index+1))+50;
-                    } else {
-                        minutes = strToInt(time.substring(index,index+1));
-                    }
-                } else if (colonCount2 == 2) {
-                    if (time.substring(index-1,index).equals("1")) {
-                        seconds = strToInt(time.substring(index,index+1))+10;
-                    } else if (time.substring(index-1,index).equals("2")) {
-                        seconds = strToInt(time.substring(index,index+1))+20;
-                    } else if (time.substring(index-1,index).equals("3")) {
-                        seconds = strToInt(time.substring(index,index+1))+30;
-                    } else if (time.substring(index-1,index).equals("4")) {
-                        seconds = strToInt(time.substring(index,index+1))+40;
-                    } else if (time.substring(index-1,index).equals("5")) {
-                        seconds = strToInt(time.substring(index,index+1))+50;
-                    } else {
-                        seconds = strToInt(time.substring(index,index+1));
-                    }
-                }
-            }
-        }
+    public static TimeDuration parseFromColonString(String time) {
+        int colonIndex = time.indexOf(":");
+        int minutes = strToInt(time.substring(0, colonIndex));
+        int seconds = strToInt(time.substring(colonIndex+1, time.length()));
+        TimeDuration result = new TimeDuration(0, minutes, seconds);
         return result;
     }
 
