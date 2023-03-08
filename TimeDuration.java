@@ -12,55 +12,46 @@ public class TimeDuration {
     }
 
     private static int strToInt(String text) {
-            String curChar = text;
-            if (curChar.equals("1")) {
+            String curNum = text;
+            if (curNum.equals("1")) {
                 return 1;
             }
-            if (curChar.equals("2")) {
+            if (curNum.equals("2")) {
                 return 2;
             }
-            if (curChar.equals("3")) {
+            if (curNum.equals("3")) {
                 return 3;
             }
-            if (curChar.equals("4")) {
+            if (curNum.equals("4")) {
                 return 4;
             }
-            if (curChar.equals("5")) {
+            if (curNum.equals("5")) {
                 return 5;
             }
-            if (curChar.equals("6")) {
+            if (curNum.equals("6")) {
                 return 6;
             }
-            if (curChar.equals("7")) {
+            if (curNum.equals("7")) {
                 return 7;
             }
-            if (curChar.equals("8")) {
+            if (curNum.equals("8")) {
                 return 8;
             }
-            if (curChar.equals("9")) {
+            if (curNum.equals("9")) {
                 return 9;
             } else {
                 return 0;
             }
     }
 
-    public TimeDuration parseFromHMSString(String time) {
+    public static TimeDuration parseFromHMSString(String time) {
+        int hIndex = time.indexOf("h");
+        int mIndex = time.indexOf("m");
+        int sIndex = time.indexOf("s");
+        int hours = strToInt(time.substring(0, hIndex));
+        int minutes = strToInt(time.substring(hIndex+1, mIndex));
+        int seconds = strToInt((time.substring(mIndex+1, sIndex)));
         TimeDuration result = new TimeDuration(hours, minutes, seconds);
-        for (int index = 0; index < time.length(); index++) {
-            if (time.substring(index+1, index+2).equals("m")) {
-                minutes = strToInt(time.substring(index, index+1));
-            } else if (time.substring(index+1, index+2).equals(" ") && time.substring(index+2, index+3).equals("m")) {
-                minutes = strToInt(time.substring(index, index+1));
-            } else if (time.substring(index+1, index+2).equals(" ") && time.substring(index+2, index+3).equals("h")) {
-                hours = strToInt(time.substring(index, index+1));
-            } else if (time.substring(index+1, index+2).equals("h")) {
-                hours = strToInt(time.substring(index, index+1));
-            } else if (time.substring(index+1, index+2).equals("s")) {
-                seconds = strToInt(time.substring(index, index+1));
-            } else if (time.substring(index+1, index+2).equals(" ") && time.substring(index+2, index+3).equals("s")) {
-                seconds = strToInt(time.substring(index, index+1));
-            }
-        }
         return result;
     }
 
@@ -93,6 +84,6 @@ public class TimeDuration {
     }
 
     public static void main(String[] args) {
-        
+        System.out.println(parseFromColonString("20:04"));
     }
 }
