@@ -11,7 +11,6 @@ public class TimeDuration {
         this.seconds = seconds;
     }
 
-
     public static TimeDuration parseFromHMSString(String time) {
         int hIndex = time.indexOf("h");
         int mIndex = time.indexOf("m");
@@ -23,11 +22,21 @@ public class TimeDuration {
         return result;
     }
 
+    // public static TimeDuration parseFromColonString(String time) {
+    //     int firstColon = time.indexOf(":");
+    //     int minutes = Integer.parseInt(time.substring(0, colonIndex));
+    //     int seconds = Integer.parseInt(time.substring(colonIndex+1,time.length()));
+    //     TimeDuration result = new TimeDuration(0, minutes, seconds);
+    //     return result;
+    // }
+
     public static TimeDuration parseFromColonString(String time) {
-        int colonIndex = time.indexOf(":");
-        int minutes = Integer.parseInt(time.substring(0, colonIndex));
-        int seconds = Integer.parseInt(time.substring(colonIndex+1,time.length()));
-        TimeDuration result = new TimeDuration(0, minutes, seconds);
+        int firstColonIndex = time.indexOf(":");
+        int secondColonIndex = time.indexOf(":", firstColonIndex+1);
+        int hours = Integer.parseInt(time.substring(0, firstColonIndex));
+        int minutes = Integer.parseInt(time.substring(firstColonIndex+1, secondColonIndex));
+        int seconds = Integer.parseInt(time.substring(secondColonIndex+1, time.length()));
+        TimeDuration result = new TimeDuration(hours, minutes, seconds);
         return result;
     }
 
@@ -53,6 +62,6 @@ public class TimeDuration {
 
     public static void main(String[] args) {
         System.out.println(parseFromHMSString("12 h, 30 m, 7 s"));
-        System.out.println(parseFromColonString("2:20"));
+        System.out.println(parseFromColonString("2:2:2"));
     }
 }
