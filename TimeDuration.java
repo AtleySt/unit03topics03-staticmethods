@@ -58,9 +58,6 @@ public class TimeDuration {
                 }
             }
         }
-        // int hours = Integer.parseInt(time.substring(0, hIndex-1));
-        // int minutes = Integer.parseInt(time.substring(hIndex+3, mIndex-1));
-        // int seconds = Integer.parseInt(time.substring(mIndex+3, sIndex-1));
         TimeDuration result = new TimeDuration(hours, minutes, seconds);
         return result;
     }
@@ -98,8 +95,21 @@ public class TimeDuration {
 
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        System.out.println("Please give some time");
+        System.out.println("Please choose the format you are going to put your time in:");
+        System.out.println("    h:m:s   (type '1')");
+        System.out.println("    *hours* h, *minutes* m, *seconds* s   (type '2')");
+        String choice = s.nextLine();
+        System.out.println("Now type your time in the selected format: ");
         String time = s.nextLine();
+        if (choice.equals("1")) {
+            System.out.println("Your time is " + parseFromColonString(time));
+        } else if (choice.equals("2")) {
+            System.out.println("Your time is " + parseFromHMSString(time));
+        } else {
+            System.out.println("Please select one of the types");
+        }
+
+        // System.out.println("The time you have given is " + parseFromColonString(time));
         // System.out.println(parseFromHMSString("5 m, 12s"));
         // System.out.println(parseFromColonString("2:2:2"));
     }
