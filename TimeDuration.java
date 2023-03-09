@@ -11,54 +11,22 @@ public class TimeDuration {
         this.seconds = seconds;
     }
 
-    private static int strToInt(String text) {
-            String curNum = text;
-            if (curNum.equals("1")) {
-                return 1;
-            }
-            if (curNum.equals("2")) {
-                return 2;
-            }
-            if (curNum.equals("3")) {
-                return 3;
-            }
-            if (curNum.equals("4")) {
-                return 4;
-            }
-            if (curNum.equals("5")) {
-                return 5;
-            }
-            if (curNum.equals("6")) {
-                return 6;
-            }
-            if (curNum.equals("7")) {
-                return 7;
-            }
-            if (curNum.equals("8")) {
-                return 8;
-            }
-            if (curNum.equals("9")) {
-                return 9;
-            } else {
-                return 0;
-            }
-    }
 
     public static TimeDuration parseFromHMSString(String time) {
         int hIndex = time.indexOf("h");
         int mIndex = time.indexOf("m");
         int sIndex = time.indexOf("s");
-        int hours = strToInt(time.substring(0, hIndex));
-        int minutes = strToInt(time.substring(hIndex+1, mIndex));
-        int seconds = strToInt((time.substring(mIndex+1, sIndex)));
+        int hours = Integer.parseInt(time.substring(0, hIndex-1));
+        int minutes = Integer.parseInt(time.substring(hIndex+3, mIndex-1));
+        int seconds = Integer.parseInt(time.substring(mIndex+3, sIndex-1));
         TimeDuration result = new TimeDuration(hours, minutes, seconds);
         return result;
     }
 
     public static TimeDuration parseFromColonString(String time) {
         int colonIndex = time.indexOf(":");
-        int minutes = strToInt(time.substring(0, colonIndex));
-        int seconds = strToInt(time.substring(colonIndex+1, time.length()));
+        int minutes = Integer.parseInt(time.substring(0, colonIndex));
+        int seconds = Integer.parseInt(time.substring(colonIndex+1,time.length()));
         TimeDuration result = new TimeDuration(0, minutes, seconds);
         return result;
     }
@@ -84,6 +52,7 @@ public class TimeDuration {
     }
 
     public static void main(String[] args) {
-        System.out.println(parseFromColonString("20:04"));
+        System.out.println(parseFromHMSString("12 h, 30 m, 7 s"));
+        System.out.println(parseFromColonString("2:20"));
     }
 }
