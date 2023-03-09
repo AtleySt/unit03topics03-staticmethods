@@ -1,4 +1,5 @@
 import java.sql.Time;
+import java.util.Scanner;
 
 public class TimeDuration {
     private int hours;
@@ -96,7 +97,10 @@ public class TimeDuration {
     }
 
     public static void main(String[] args) {
-        System.out.println(parseFromHMSString("5 m, 12s"));
-        System.out.println(parseFromColonString("2:2:2"));
+        Scanner s = new Scanner(System.in);
+        System.out.println("Please give some time");
+        String time = s.nextLine();
+        // System.out.println(parseFromHMSString("5 m, 12s"));
+        // System.out.println(parseFromColonString("2:2:2"));
     }
 }
