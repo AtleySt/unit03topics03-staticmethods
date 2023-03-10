@@ -66,9 +66,17 @@ public class TimeDuration {
     public static TimeDuration parseFromColonString(String time) {
         int firstColonIndex = time.indexOf(":");
         int secondColonIndex = time.indexOf(":", firstColonIndex+1);
-        int hours = Integer.parseInt(time.substring(0, firstColonIndex));
-        int minutes = Integer.parseInt(time.substring(firstColonIndex+1, secondColonIndex));
-        int seconds = Integer.parseInt(time.substring(secondColonIndex+1, time.length()));
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+        if (secondColonIndex < 0) {
+            minutes = Integer.parseInt(time.substring(0, firstColonIndex));
+            seconds = Integer.parseInt(time.substring(firstColonIndex+1, time.length()));
+        } else {
+            hours = Integer.parseInt(time.substring(0, firstColonIndex));
+            minutes = Integer.parseInt(time.substring(firstColonIndex+1, secondColonIndex));
+            seconds = Integer.parseInt(time.substring(secondColonIndex+1, time.length()));
+        }
         TimeDuration result = new TimeDuration(hours, minutes, seconds);
         return result;
     }
@@ -102,8 +110,5 @@ public class TimeDuration {
         } else {
             System.out.println("Your time is " + parseFromHMSString(time));
         }
-        // System.out.println("The time you have given is " + parseFromColonString(time));
-        // System.out.println(parseFromHMSString("5 m, 12s"));
-        // System.out.println(parseFromColonString("2:2:2"));
     }
 }
