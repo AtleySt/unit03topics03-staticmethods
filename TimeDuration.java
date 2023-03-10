@@ -5,11 +5,18 @@ public class TimeDuration {
     private int hours;
     private int minutes;
     private int seconds;
+    private static int numberOfTimeDurationsCreated;
 
     public TimeDuration(int hours, int minutes, int seconds) {
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
+
+        numberOfTimeDurationsCreated++;
+    }
+
+    public static int getNumberOfTimeDurationsCreated() {
+        return numberOfTimeDurationsCreated;
     }
 
     public static TimeDuration parseFromHMSString(String time) {
@@ -102,13 +109,21 @@ public class TimeDuration {
     }
 
     public static void main(String[] args) {
+
+        String usrResponse = "y";
         Scanner s = new Scanner(System.in);
-        System.out.println("Please enter a time");
-        String time = s.nextLine();
-        if (time.indexOf(":") > -1) {
-            System.out.println("Your time is " + parseFromColonString(time));
-        } else {
-            System.out.println("Your time is " + parseFromHMSString(time));
+        while (usrResponse.equals("y")) {
+            System.out.println("Please enter a time");
+            String time = s.nextLine();
+            if (time.indexOf(":") > -1) {
+                System.out.println("Your time is " + parseFromColonString(time));
+            } else {
+                System.out.println("Your time is " + parseFromHMSString(time));
         }
+            System.out.println("If you would like to insert another time, type 'y'");
+            System.out.println("if not, hit enter.");
+            usrResponse = s.nextLine();
+        }
+        System.out.println("In your session, you created " + getNumberOfTimeDurationsCreated() + " Time Durations");
     }
 }
