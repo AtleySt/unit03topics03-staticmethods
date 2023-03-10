@@ -95,20 +95,13 @@ public class TimeDuration {
 
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        System.out.println("Please choose the format you are going to put your time in:");
-        System.out.println("    h:m:s   (type '1')");
-        System.out.println("    *hours* h, *minutes* m, *seconds* s   (type '2')");
-        String choice = s.nextLine();
-        System.out.println("Now type your time in the selected format: ");
+        System.out.println("Please enter a time");
         String time = s.nextLine();
-        if (choice.equals("1")) {
+        if (time.indexOf(":") > -1) {
             System.out.println("Your time is " + parseFromColonString(time));
-        } else if (choice.equals("2")) {
-            System.out.println("Your time is " + parseFromHMSString(time));
         } else {
-            System.out.println("Please select one of the types");
+            System.out.println("Your time is " + parseFromHMSString(time));
         }
-
         // System.out.println("The time you have given is " + parseFromColonString(time));
         // System.out.println(parseFromHMSString("5 m, 12s"));
         // System.out.println(parseFromColonString("2:2:2"));
